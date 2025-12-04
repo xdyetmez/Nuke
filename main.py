@@ -46,12 +46,13 @@ class AutoInstaller:
             
             try:
                 __import__(module_name)
-                print(f"✅ {module_name} already installed")
+                print(f"loading")
             except ImportError:
-                print(f"⚠️ {module_name} not found, installing...")
+                print(f"installing modules")
                 AutoInstaller.install_module(module_spec)
         
         print("✅ All modules ready!\n")
+        os.system("CLS")
     
     @staticmethod
     def install_module(module_spec):
@@ -63,7 +64,7 @@ class AutoInstaller:
                 if 'sys_platform' in condition:
                     platform_req = condition.split('==')[1].strip('"\'')
                     if platform.system().lower() != platform_req.strip('"'):
-                        print(f"⏭️  Skipping {module_name} (platform mismatch)")
+                        print("skipping")
                         return
             else:
                 module_name = module_spec
@@ -76,11 +77,11 @@ class AutoInstaller:
                 if os.geteuid() != 0:
                     cmd.insert(0, 'sudo')
             
-            subprocess.run(cmd, check=True, capture_output=True)
-            print(f"✅ Installed {module_name}")
+            subprocess.run(cmd, check=True, capture_output=false)
+            print(f"✅ Installed")
             
         except subprocess.CalledProcessError:
-            print(f"❌ Failed to install {module_name}")
+            print(f"❌ Failed to install")
             # Fallback: pip install without quiet
             try:
                 subprocess.run([sys.executable, "-m", "pip", "install", module_name])
