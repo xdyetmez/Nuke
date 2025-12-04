@@ -77,7 +77,7 @@ class AutoInstaller:
                 if os.geteuid() != 0:
                     cmd.insert(0, 'sudo')
             
-            subprocess.run(cmd, check=True, capture_output=false)
+            subprocess.run(cmd, check=True, capture_output=True)
             print(f"✅ Installed")
             
         except subprocess.CalledProcessError:
